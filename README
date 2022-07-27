@@ -48,7 +48,7 @@ search path, you can run "make qemu".
 
 
 _________________________________________________________________________________
->>COW Extension:
+* COW Extension:
 The fork system call in xv6 copies the entire memory image of the calling process, to be used as a memory image of the child process it creates.
 A call to fork is typically followed by a call to exec,
 which replaces the memory image with a new memory image.
