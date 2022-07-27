@@ -1,4 +1,15 @@
+_________________________________________________________________________________
+## Copy-On-Write (COW) Extension:
+The fork system call in xv6 copies the entire memory image of the calling process, to be used as a memory image of the child process it creates.
+A call to fork is typically followed by a call to exec,
+which replaces the memory image with a new memory image.
+Therefore, the current implementation of the fork system call is highly inefficient.
+Thus, I implemented the COW mechanism, in which we don't copy the
+pages during the fork call, but instead, we mark each page as read-only and as COW.
+If an attempt to write to such a read-only page occurs, It catches the protection fault and creates a writable copy of the page for the process that caused the page fault.
+_________________________________________________________________________________
 
+## What is xv6
 xv6 is a re-implementation of Dennis Ritchie's and Ken Thompson's Unix
 Version 6 (v6).  xv6 loosely follows the structure and style of v6,
 but is implemented for a modern RISC-V multiprocessor using ANSI C.
@@ -48,13 +59,4 @@ riscv64-softmmu. Once they are installed, and in your shell
 search path, you can run "make qemu".
 
 
-_________________________________________________________________________________
-## Copy-On-Write (COW) Extension:
-The fork system call in xv6 copies the entire memory image of the calling process, to be used as a memory image of the child process it creates.
-A call to fork is typically followed by a call to exec,
-which replaces the memory image with a new memory image.
-Therefore, the current implementation of the fork system call is highly inefficient.
-Thus, I implemented the COW mechanism, in which we don't copy the
-pages during the fork call, but instead, we mark each page as read-only and as COW.
-If an attempt to write to such a read-only page occurs, It catches the protection fault and creates a writable copy of the page for the process that caused the page fault.
-_________________________________________________________________________________
+
